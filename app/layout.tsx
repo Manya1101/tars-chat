@@ -1,23 +1,25 @@
+import type { ReactNode } from "react";
+
 import {
-ClerkProvider,
-SignInButton,
-SignUpButton,
-SignedIn,
-SignedOut,
-UserButton,
-} from '@clerk/nextjs'
+  ClerkProvider,
+  SignInButton,
+  SignUpButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from "@clerk/nextjs";
 
-import './globals.css'
+import "./globals.css";
 
-export default function RootLayout({ children }) {
-
-return (
-
-<ClerkProvider>
-
-<html lang="en">
-
-<body>
+export default function RootLayout({
+  children,
+}: {
+  children: ReactNode;
+}) {
+  return (
+    <ClerkProvider>
+      <html lang="en">
+        <body>
 
 <header className="flex justify-end gap-4 p-4">
 
@@ -43,12 +45,8 @@ Sign Up
 
 {children}
 
-</body>
-
-</html>
-
-</ClerkProvider>
-
-)
-
+        </body>
+      </html>
+    </ClerkProvider>
+  );
 }
