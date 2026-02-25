@@ -9,6 +9,9 @@ import {
   UserButton,
 } from "@clerk/nextjs";
 
+import Providers from "./Providers";
+import SaveUser from "./components/SaveUser";
+
 import "./globals.css";
 
 export default function RootLayout({
@@ -18,8 +21,14 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
-      <html lang="en">
-        <body>
+
+<html lang="en">
+
+<body>
+
+<Providers>
+
+<SaveUser />
 
 <header className="flex justify-end gap-4 p-4">
 
@@ -36,17 +45,19 @@ Sign Up
 </SignedOut>
 
 <SignedIn>
-
 <UserButton />
-
 </SignedIn>
 
 </header>
 
 {children}
 
-        </body>
-      </html>
+</Providers>
+
+</body>
+
+</html>
+
     </ClerkProvider>
   );
 }
