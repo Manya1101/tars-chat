@@ -20,7 +20,7 @@ export default function RootLayout({
   children: ReactNode;
 }) {
   return (
-    <ClerkProvider>
+    // <ClerkProvider>
 
 <html lang="en">
 
@@ -58,6 +58,6 @@ Sign Up
 
 </html>
 
-    </ClerkProvider>
+    // </ClerkProvider> 
   );
 }
