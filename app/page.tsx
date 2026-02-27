@@ -1,14 +1,21 @@
+import Sidebar from "./components/Sidebar";
 import NewChatButton from "./components/NewChatButton";
 
 export default function Home() {
 
   return (
 
-    <main className="p-10">
+    <div className="flex">
 
-      <NewChatButton />
+      <Sidebar />
 
-    </main>
+      <main className="p-10">
+
+        <NewChatButton />
+
+      </main>
+
+    </div>
 
   );
 

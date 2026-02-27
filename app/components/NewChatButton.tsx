@@ -1,31 +1,30 @@
 "use client";
 
 import { useMutation } from "convex/react";
-import { api } from "../../convex/_generated/api";
+import { api } from "@/convex/_generated/api";
+import { useRouter } from "next/navigation";
 
 export default function NewChatButton() {
 
+  const router = useRouter();
+
   const createConversation = useMutation(
-    api.conversations.createConversation
+    api.conversations.getOrCreateConversation
   );
 
-  const handleNewChat = async () => {
-
-    console.log("clicked"); // 👈 add this line
+  const handleClick = async () => {
 
     const id = await createConversation();
 
-    console.log("created:", id);
-
+    router.push(`/chat/${id}`);
   };
 
   return (
     <button
-      onClick={handleNewChat}
-      className="bg-green-500 text-white px-4 py-2 rounded cursor-pointer"
+      onClick={handleClick}
+      className="bg-blue-500 px-4 py-2 rounded"
     >
       New Chat
     </button>
   );
-
 }

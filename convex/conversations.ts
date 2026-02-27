@@ -1,24 +1,34 @@
 import { mutation } from "./_generated/server";
 
-export const createConversation = mutation({
+export const getOrCreateConversation = mutation({
+
   args: {},
 
   handler: async (ctx) => {
 
-    const user = await ctx.auth.getUserIdentity();
+    const identity = await ctx.auth.getUserIdentity();
 
-    if (!user) {
+    if (!identity) {
       throw new Error("Not authenticated");
     }
 
-    const conversationId = await ctx.db.insert("conversations", {
+    // Find existing conversation for this user
+    const existing = await ctx.db
+      .query("conversations")
+      .filter((q) =>
+        q.eq(q.field("memberIds"), [identity.subject])
+      )
+      .first();
 
-      memberIds: [user.subject], // ✅ only this
+    if (existing) {
+      return existing._id;
+    }
 
+    // Create new conversation
+    const id = await ctx.db.insert("conversations", {
+      memberIds: [identity.subject],
     });
 
-    return conversationId;
-
+    return id;
   },
-
 });
