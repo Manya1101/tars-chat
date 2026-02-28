@@ -32,3 +32,17 @@ export const getOrCreateConversation = mutation({
     return id;
   },
 });
+import { query } from "./_generated/server";
+export const getConversations = query({
+  handler: async (ctx) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) return [];
+
+    return await ctx.db
+      .query("conversations")
+      .filter((q) =>
+        q.eq(q.field("memberIds"), [identity.subject])
+      )
+      .collect();
+  },
+});

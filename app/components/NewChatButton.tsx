@@ -1,30 +1,40 @@
-"use client";
 
-import { useMutation } from "convex/react";
+// 'use client';
+
+// import { api } from "@/convex/_generated/api";
+// import { useMutation } from "convex/react";
+
+// export default function NewChatButton() {
+//   const createChat = useMutation(api.conversations.createConversation);
+
+//   return (
+//     <button
+//       onClick={async () => {
+//         await createChat({});
+//       }}
+//       className="w-full bg-indigo-500 hover:bg-indigo-600 text-white py-2 px-4 rounded-md transition"
+//     >
+//       + New Chat
+//     </button>
+//   );
+// }
+'use client';
+
 import { api } from "@/convex/_generated/api";
-import { useRouter } from "next/navigation";
+import { useMutation } from "convex/react";
 
 export default function NewChatButton() {
-
-  const router = useRouter();
-
-  const createConversation = useMutation(
-    api.conversations.getOrCreateConversation
-  );
-
-  const handleClick = async () => {
-
-    const id = await createConversation();
-
-    router.push(`/chat/${id}`);
-  };
+  // Use the correct mutation name
+  const createChat = useMutation(api.conversations.getOrCreateConversation);
 
   return (
     <button
-      onClick={handleClick}
-      className="bg-blue-500 px-4 py-2 rounded"
+      onClick={async () => {
+        await createChat({});
+      }}
+      className="w-full bg-indigo-500 hover:bg-indigo-600 text-white py-2 px-4 rounded-md transition"
     >
-      New Chat
+      + New Chat
     </button>
   );
 }

@@ -1,63 +1,70 @@
-import type { ReactNode } from "react";
+// 'use client';
+// import "./globals.css";
+// import { ConvexProvider } from "convex/react";
+// import { client } from "../convexClient";
+// import Sidebar from "./components/Sidebar";
 
-import {
-  ClerkProvider,
-  SignInButton,
-  SignUpButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from "@clerk/nextjs";
+// export default function RootLayout({ children }: { children: React.ReactNode }) {
+//   return (
+//     <html lang="en">
+//       <body>
+//         <ConvexProvider client={client}>
+//           <div className="h-screen flex bg-gray-100">
+//             <div className="w-80 border-r bg-white shadow-sm">
+//               <Sidebar />
+//             </div>
+//             <div className="flex-1 overflow-hidden">{children}</div>
+//           </div>
+//         </ConvexProvider>
+//       </body>
+//     </html>
+//   );
+// }
+// app/layout.tsx
+      // import "./globals.css";
+      // import Providers from "./Providers";
 
-import Providers from "./Providers";
-import SaveUser from "./components/SaveUser";
+      // export default function RootLayout({
+      //   children,
+      // }: {
+      //   children: React.ReactNode;
+      // }) {
+      //   return (
+      //     <html lang="en">
+      //       <body>
+      //         <Providers>
+      //           {children}
+      //         </Providers>
+      //       </body>
+      //     </html>
+      //   );
+      // }
 
-import "./globals.css";
+ // app/layout.tsx
+import './globals.css';
+import Providers from './Providers';
+import Sidebar from './components/Sidebar';
 
-export default function RootLayout({
-  children,
-}: {
-  children: ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    // <ClerkProvider>
+    <html lang="en">
+      <body>
+        <Providers>
+          <div className="h-screen flex bg-gray-100">
 
-<html lang="en">
+            {/* Sidebar rendered once */}
+            <div className="w-80 border-r bg-white shadow-sm">
+              <Sidebar />
+            </div>
 
-<body>
+            {/* Page content */}
+            <div className="flex-1 overflow-hidden">
+              {children}
+            </div>
 
-<Providers>
-
-<SaveUser />
-
-<header className="flex justify-end gap-4 p-4">
-
-<SignedOut>
-
-<SignInButton />
-
-<SignUpButton>
-<button className="bg-blue-500 text-white px-4 py-2 rounded">
-Sign Up
-</button>
-</SignUpButton>
-
-</SignedOut>
-
-<SignedIn>
-<UserButton />
-</SignedIn>
-
-</header>
-
-{children}
-
-</Providers>
-
-</body>
-
-</html>
-
-    // </ClerkProvider> 
+          </div>
+        </Providers>
+      </body>
+    </html>
   );
 }
