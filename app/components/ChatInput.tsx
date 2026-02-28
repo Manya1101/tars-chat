@@ -1,41 +1,34 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { useMutation } from "convex/react";
-import { api } from "@/convex/_generated/api";
+import { useState } from 'react';
+import { useMutation } from 'convex/react';
+import { api } from '@/convex/_generated/api';
 
-interface Props {
-  conversationId: string;
+interface ChatInputProps {
+  conversationId: string; // explicitly declare prop
 }
 
-export default function ChatInput({ conversationId }: Props) {
-  const [text, setText] = useState("");
+export default function ChatInput({ conversationId }: ChatInputProps) {
+  const [text, setText] = useState('');
   const sendMessage = useMutation(api.messages.sendMessage);
 
   const handleSend = async () => {
     if (!text.trim()) return;
-
-    await sendMessage({
-      conversationId: conversationId as any,
-      text,
-    });
-
-    setText("");
+    await sendMessage({ conversationId: conversationId as any, text }); // Convex workaround
+    setText('');
   };
 
   return (
-    <div className="border-t px-6 py-4 bg-white flex gap-4">
+    <div className="bg-white border-t p-4 flex gap-3">
       <input
-        type="text"
         value={text}
         onChange={(e) => setText(e.target.value)}
-        placeholder="Type a message…"
-        className="flex-1 border rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400"
-        onKeyDown={(e) => e.key === "Enter" && handleSend()}
+        className="flex-1 border rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+        placeholder="Type a message..."
       />
       <button
         onClick={handleSend}
-        className="bg-indigo-600 text-white px-6 py-2 rounded-full hover:bg-indigo-700 transition"
+        className="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition"
       >
         Send
       </button>
